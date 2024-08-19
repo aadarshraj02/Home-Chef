@@ -8,4 +8,4 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.listen(post, () => console.log(`server is running on the port ${port}`));
+app.listen(port, () => console.log(`server is running on the port ${port}`));
