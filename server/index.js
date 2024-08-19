@@ -9,6 +9,9 @@ require("dotenv").config();
 const { connectDB } = require("./connection");
 connectDB();
 
+const routes = require("./routes");
+app.use("/api",routes)
+
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
