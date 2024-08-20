@@ -6,10 +6,11 @@ const {
   logout,
   checkUser,
 } = require("./controllers/authController");
+const { verifyToken } = require("./middlewares/verifyToken");
 
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/logout", logout);
-router.get("/checkUser", checkUser);
+router.get("/checkUser", verifyToken, checkUser);
 
 module.exports = router;
