@@ -10,7 +10,7 @@ exports.signup = async (req, res) => {
     if (user) {
       return res.status(400).json({
         success: false,
-        message: "Please signup",
+        message: "Account already exist",
       });
     }
 
@@ -25,6 +25,51 @@ exports.signup = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Signup Successful",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  let { email, password } = req.body;
+
+  try {
+    let user;
+    user = await User.findOne({ email });
+
+    if (!user)
+      return res.status(400).json({
+        success: false,
+        message: "Account Doesn't exist, Please Signup",
+      });
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return res.status(400).json({
+        success: false,
+        message: "Incorrect Password",
+      });
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 60 * 60),
+    });
+    res.status(200).json({
+      success: true,
+      message: "Login Successful",
     });
   } catch (error) {
     return res.status(500).json({
