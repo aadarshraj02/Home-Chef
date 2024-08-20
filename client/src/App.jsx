@@ -5,11 +5,13 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import RecipeDetails from "./pages/RecipeDetails";
 import Favorites from "./pages/Favorites";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
