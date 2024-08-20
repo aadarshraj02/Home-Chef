@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import RecipeDetails from "./pages/RecipeDetails";
+import Favorites from "./pages/Favorites";
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/recipeDetails" element={<RecipeDetails />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
     </>
