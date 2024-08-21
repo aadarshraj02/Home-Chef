@@ -31,7 +31,14 @@ const Home = () => {
         </form>
       </div>
       <div className="my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-3">
-        <RecipeCard />
+        {recipes.map((recipe) => (
+          <RecipeCard
+            key={recipe.idMeal}
+            id={recipe.idMeal}
+            title={recipe.strMeal}
+            image={recipe.strMealThumb}
+          />
+        ))}
       </div>
     </div>
   );
