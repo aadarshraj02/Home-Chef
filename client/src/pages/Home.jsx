@@ -14,7 +14,7 @@ const Home = () => {
           />
         </form>
       </div>
-      <div className="my-10">
+      <div className="my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-3">
         <RecipeCard />
       </div>
     </div>
