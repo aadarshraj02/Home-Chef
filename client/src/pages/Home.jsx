@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
+import axios from "axios";
 
 const Home = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  const getRecipes = async () => {
+    const res = await axios.get(
+      "https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast"
+    );
+    const data = await res.data;
+    setRecipes(data.meals);
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div>
