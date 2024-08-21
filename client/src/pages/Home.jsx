@@ -2,7 +2,7 @@ import RecipeCard from "../components/RecipeCard";
 
 const Home = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <div>
         <form>
           <input
@@ -14,7 +14,7 @@ const Home = () => {
           />
         </form>
       </div>
-      <div>
+      <div className="my-10">
         <RecipeCard />
       </div>
     </div>
