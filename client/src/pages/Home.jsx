@@ -18,7 +18,9 @@ const Home = () => {
       `https://www.themealdb.com/api/json/v1/1/filter.php?i=`
     );
     const data = await res.data;
-    setRecipes(data.meals);
+    if (data === null || data === undefined) {
+      console.log("No data Found");
+    } else setRecipes(data.meals);
   };
 
   useEffect(() => {
