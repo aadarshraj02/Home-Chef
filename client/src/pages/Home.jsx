@@ -1,3 +1,5 @@
+import RecipeCard from "../components/RecipeCard";
+
 const Home = () => {
   return (
     <div className="flex justify-center items-center">
@@ -12,7 +14,9 @@ const Home = () => {
           />
         </form>
       </div>
-      <div></div>
+      <div>
+        <RecipeCard />
+      </div>
     </div>
   );
 };
