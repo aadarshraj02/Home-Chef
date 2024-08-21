@@ -12,7 +12,10 @@ const RecipeCard = ({ id, image, title }) => {
         />
       </div>
       <div className="flex justify-between items-center mt-3">
-        <h3>{title}</h3>
+        <h3 className="text-sm text-zinc-600 leading-none tracking-tighter">
+          {title.slice(0, 20)}
+          {title.length > 20 ? "..." : null}
+        </h3>
         <IoIosHeart className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
       </div>
     </div>
