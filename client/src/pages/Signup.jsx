@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSignup = async (e) => {
     e.preventDefault();
   };
@@ -28,6 +33,8 @@ const Signup = () => {
               type="text"
               required
               placeholder="username"
+              value={username}
+              onChange={(e) => e.setUsername(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -43,6 +50,8 @@ const Signup = () => {
               type="email"
               required
               placeholder="Email"
+              value={email}
+              onChange={(e) => e.setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -59,6 +68,8 @@ const Signup = () => {
               name="password"
               required
               autoComplete="false"
+              value={password}
+              onChange={(e) => e.setPassword(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between">
