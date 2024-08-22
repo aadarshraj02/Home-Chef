@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -8,7 +10,19 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    // Implement signup logic here
+
+    const res = await axios.post(
+      "http://localhost:5000/api/signup",
+      {
+        username,
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    const data = await res.data;
   };
 
   return (
