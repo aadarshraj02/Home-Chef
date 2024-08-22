@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="flex items-center justify-center h-[80vh]">
       <div className="w-full max-w-md">
-        <form className="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4">
+        <form
+          className="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4"
+          onSubmit={handleSignup}
+        >
           <div className="text-gray-800 text-2xl flex justify-center border-b-2 py-2 mb-4">
             Create Account
           </div>
