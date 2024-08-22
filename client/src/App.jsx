@@ -6,12 +6,14 @@ import Signup from "./pages/Signup";
 import RecipeDetails from "./pages/RecipeDetails";
 import Favorites from "./pages/Favorites";
 import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Navbar />
+        <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
