@@ -8,6 +8,7 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    // Implement signup logic here
   };
 
   return (
@@ -34,7 +35,7 @@ const Signup = () => {
               required
               placeholder="username"
               value={username}
-              onChange={(e) => e.setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -51,7 +52,7 @@ const Signup = () => {
               required
               placeholder="Email"
               value={email}
-              onChange={(e) => e.setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -69,7 +70,7 @@ const Signup = () => {
               required
               autoComplete="false"
               value={password}
-              onChange={(e) => e.setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between">
