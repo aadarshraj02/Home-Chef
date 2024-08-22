@@ -23,6 +23,10 @@ const Signup = () => {
       }
     );
     const data = await res.data;
+
+    if (data.success) {
+      toast.success("Account Created Successfully");
+    }
   };
 
   return (
