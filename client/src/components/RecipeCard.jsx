@@ -1,13 +1,43 @@
+import axios from "axios";
 import { IoIosHeart } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RecipeCard = ({ id, image, title }) => {
   const pathname = useLocation();
 
-  const addToFavorites = async (favorite) => {};
+  const user = useSelector((state) => state.auth.user);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const removeFromFavorites = async (favorite) => {};
+  const addToFavorites = async (favorite) => {
+    const res = await axios.post(
+      `http://localhost:5000/api/addToFavorites/${user._id}`,
+      favorite,
+      {
+        withCredentials: true,
+      }
+    );
+    const data = res.data;
+    if (data.success) {
+      toast.success(data.message);
+    }
+  };
+
+  const removeFromFavorites = async (favorite) => {
+    const res = await axios.post(
+      `http://localhost:5000/api/removeFromFavorites/${user._id}`,
+      favorite,
+      {
+        withCredentials: true,
+      }
+    );
+    const data = res.data;
+    if (data.success) {
+      toast.success(data.message);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-between bg-white p-3 rounded-lg shadow-md">
@@ -38,11 +68,13 @@ const RecipeCard = ({ id, image, title }) => {
         ) : (
           <IoIosHeart
             onClick={() => {
-              addToFavorites({
-                idMeal: id,
-                strMeal: title,
-                strMealThumb: image,
-              });
+              isAuth
+                ? addToFavorites({
+                    idMeal: id,
+                    strMeal: title,
+                    strMealThumb: image,
+                  })
+                : toast.error("Please login to add to Favorite");
             }}
             className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
           />
