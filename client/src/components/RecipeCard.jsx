@@ -1,12 +1,15 @@
 import axios from "axios";
 import { IoIosHeart } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import { getFavorites } from "../helpers/helper";
+import { setFavorites } from "../../redux/slices/authSlice";
 
 const RecipeCard = ({ id, image, title }) => {
-  const pathname = useLocation();
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -62,6 +65,7 @@ const RecipeCard = ({ id, image, title }) => {
                 strMeal: title,
                 strMealThumb: image,
               });
+              getFavorites(user._id).then((res) => dispatch(setFavorites(res)));
             }}
             className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
           />
