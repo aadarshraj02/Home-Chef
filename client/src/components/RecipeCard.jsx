@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 const RecipeCard = ({ id, image, title }) => {
   const pathname = useLocation();
 
-  const addToFavorites = async () => {};
+  const addToFavorites = async (favorite) => {};
 
-  const removeFromFavorites = async () => {};
+  const removeFromFavorites = async (favorite) => {};
 
   return (
     <div className="flex flex-col justify-between bg-white p-3 rounded-lg shadow-md">
@@ -26,12 +26,24 @@ const RecipeCard = ({ id, image, title }) => {
         </h3>
         {pathname === "/favorites" ? (
           <MdDelete
-            onClick={removeFromFavorites}
+            onClick={() => {
+              removeFromFavorites({
+                idMeal: id,
+                strMeal: title,
+                strMealThumb: image,
+              });
+            }}
             className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
           />
         ) : (
           <IoIosHeart
-            onClick={addToFavorites}
+            onClick={() => {
+              addToFavorites({
+                idMeal: id,
+                strMeal: title,
+                strMealThumb: image,
+              });
+            }}
             className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
           />
         )}
