@@ -1,40 +1,37 @@
-import axios from "axios";
-import { IoIosHeart } from "react-icons/io";
+import { HiHeart } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { getFavorites } from "../helpers/helper";
 import { setFavorites } from "../../redux/slices/authSlice";
+import { Link } from "react-router-dom";
 
-const RecipeCard = ({ id, image, title }) => {
+const RecipeCard = ({ id, title, image }) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const addToFavorites = async (favorite) => {
+  const addToFav = async (favorite) => {
     const res = await axios.post(
-      `http://localhost:5000/api/addToFavorites/${user._id}`,
+      `http://localhost:5000/api/addToFavourites/${user._id}`,
       favorite,
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
     const data = res.data;
     if (data.success) {
       toast.success(data.message);
     }
   };
-
-  const removeFromFavorites = async (favorite) => {
+  const removeFromFav = async (favorite) => {
     const res = await axios.post(
-      `http://localhost:5000/api/removeFromFavorites/${user._id}`,
+      `http://localhost:5000/api/removeFromFavourites/${user._id}`,
       favorite,
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
     const data = res.data;
     if (data.success) {
@@ -43,49 +40,56 @@ const RecipeCard = ({ id, image, title }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between bg-white p-3 rounded-lg shadow-md">
+    <div className="shadow-md flex flex-col justify-between p-3 rounded-lg bg-white">
       <div className="overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="rounded-lg hover:scale-110 transition-all duration-300 ease-linear"
-          width={250}
-        />
+        <Link to={`/recipe/${id}`}>
+          <img
+            src={image}
+            alt={title}
+            className="rounded-lg hover:scale-110 transition-all duration-500 ease-in-out"
+            width={250}
+          />
+        </Link>
       </div>
-      <div className="flex justify-between items-center mt-3">
-        <h3 className="text-sm text-zinc-600 leading-none tracking-tighter">
-          {title.slice(0, 20)}
-          {title.length > 20 ? "..." : null}
-        </h3>
+      <div className="flex mt-2 justify-between items-center ">
+        <span>
+          {title.slice(0, 20)} {title.length > 20 ? "..." : null}
+        </span>
         {pathname === "/favorites" ? (
           <MdDelete
+            className="text-red-500 hover:scale-125 transition-all duration-500 ease-in-out cursor-pointer"
             onClick={() => {
-              removeFromFavorites({
+              removeFromFav({
                 idMeal: id,
                 strMeal: title,
                 strMealThumb: image,
               });
               getFavorites(user._id).then((res) => dispatch(setFavorites(res)));
             }}
-            className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
           />
         ) : (
-          <IoIosHeart
-            onClick={() => {
+          <HiHeart
+            className="text-red-500 hover:scale-125 transition-all duration-500 ease-in-out cursor-pointer"
+            onClick={() =>
               isAuth
-                ? addToFavorites({
+                ? addToFav({
                     idMeal: id,
                     strMeal: title,
                     strMealThumb: image,
                   })
-                : toast.error("Please login to add to Favorite");
-            }}
-            className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
+                : toast.error("Please login to add to favorites")
+            }
           />
         )}
       </div>
     </div>
   );
+};
+
+RecipeCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
