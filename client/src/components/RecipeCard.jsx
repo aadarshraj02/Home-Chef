@@ -5,6 +5,10 @@ import { useLocation } from "react-router-dom";
 const RecipeCard = ({ id, image, title }) => {
   const pathname = useLocation();
 
+  const addToFavorites = async () => {};
+
+  const removeFromFavorites = async () => {};
+
   return (
     <div className="flex flex-col justify-between bg-white p-3 rounded-lg shadow-md">
       <div className="overflow-hidden">
