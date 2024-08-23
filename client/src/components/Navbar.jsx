@@ -1,24 +1,71 @@
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout, setUser, login } from "../../redux/slices/authSlice";
+import { useEffect } from "react";
 
 const Navbar = () => {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    const res = await axios.get("http://localhost:5000/api/logout", {
+      withCredentials: true,
+    });
+    const data = await res.data;
+    if (data.success) {
+      toast.success(data.message);
+      dispatch(logout());
+    }
+  };
+
+  const checkUser = async () => {
+    const res = await axios.get("http://localhost:5000/api/checkUser", {
+      withCredentials: true,
+    });
+    const data = await res.data;
+    if (data.success) {
+      dispatch(login());
+      dispatch(setUser(data.user));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
-    <nav className="flex justify-between bg-white items-center px-5 py-4 shadow-md mb-10">
-      <Link to="/" className="TITLE_TEXT text-xl font-bold text-red-500">
+    <nav className="flex justify-between bg-white px-3 md:px-4 lg:px-5 mb-10 py-4 shadow-md">
+      <Link to="/" className="TITLE-TEXT text-xl font-bold text-red-500">
         HomeChef
       </Link>
-      <div className="flex gap-5 items-center justify-center text-zinc-600 ">
-        <Link to="/about" className="hover:text-black duration-300 ease-linear">
+      <div className="flex gap-3 text-md justify-center items-center text-gray-600">
+        <Link to="/about" className="hover:text-black">
           About
         </Link>
-        <Link to="/login" className="hover:text-black duration-300 ease-linear">
-          Login
-        </Link>
-        <Link
-          to="/signup"
-          className="hover:text-black duration-300 ease-linear"
-        >
-          Signup
-        </Link>
+        {isAuth && (
+          <Link to="/favorites" className="hover:text-black">
+            Favorites
+          </Link>
+        )}
+        {isAuth ? (
+          <li
+            className="hover:text-black list-none cursor-pointer"
+            onClick={handleLogout}
+          >
+            Logout
+          </li>
+        ) : (
+          <>
+            <Link to="/login" className="hover:text-black">
+              Login
+            </Link>
+            <Link to="/signup" className="hover:text-black">
+              Signup
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
