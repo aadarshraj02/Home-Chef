@@ -25,9 +25,15 @@ const RecipeCard = ({ id, image, title }) => {
           {title.length > 20 ? "..." : null}
         </h3>
         {pathname === "/favorites" ? (
-          <MdDelete className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
+          <MdDelete
+            onClick={removeFromFavorites}
+            className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
+          />
         ) : (
-          <IoIosHeart className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
+          <IoIosHeart
+            onClick={addToFavorites}
+            className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer"
+          />
         )}
       </div>
     </div>
