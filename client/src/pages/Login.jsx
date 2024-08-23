@@ -1,12 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { login, setUser } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch;
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    const res = await axios.post("http://localhost:5000/api/signup", {
+      email,
+      password,
+    });
+    const data = await res.data;
+
+    if (data.success) {
+      toast.success("Login Successfully");
+      dispatch(login());
+      dispatch(setUser(data.user));
+    }
   };
 
   return (
