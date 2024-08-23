@@ -1,6 +1,10 @@
 import { IoIosHeart } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 const RecipeCard = ({ id, image, title }) => {
+  const pathname = useLocation();
+
   return (
     <div className="flex flex-col justify-between bg-white p-3 rounded-lg shadow-md">
       <div className="overflow-hidden">
@@ -16,7 +20,11 @@ const RecipeCard = ({ id, image, title }) => {
           {title.slice(0, 20)}
           {title.length > 20 ? "..." : null}
         </h3>
-        <IoIosHeart className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
+        {pathname === "/favorites" ? (
+          <MdDelete className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
+        ) : (
+          <IoIosHeart className="text-red-500 text-lg hover:scale-125 transition-all duration-300 ease-linear cursor-pointer" />
+        )}
       </div>
     </div>
   );
