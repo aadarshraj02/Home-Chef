@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const gerFavorites = async (id) => {
+export const getFavorites = async (id) => {
   const res = await axios.get(`http://localhost:5000/api/getFavorites/${id}`, {
     withCredentials: true,
   });

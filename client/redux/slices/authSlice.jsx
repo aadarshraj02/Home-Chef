@@ -5,6 +5,7 @@ const authSlice = createSlice({
   initialState: {
     isAuth: false,
     user: [],
+    favorites: [],
   },
   reducers: {
     login: (state) => {
@@ -16,8 +17,11 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
   },
 });
 
-export const { login, logout, setUser } = authSlice.actions;
+export const { login, logout, setUser, setFavorites } = authSlice.actions;
 export default authSlice.reducer;
