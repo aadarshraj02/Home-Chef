@@ -20,20 +20,20 @@ const Navbar = () => {
     }
   };
 
-  // const checkUser = async () => {
-  //   const res = await axios.get("http://localhost:5000/api/checkUser", {
-  //     withCredentials: true,
-  //   });
-  //   const data = await res.data;
-  //   if (data.success) {
-  //     dispatch(login());
-  //     dispatch(setUser(data.user));
-  //   }
-  // };
+  const checkUser = async () => {
+    const res = await axios.get("http://localhost:5000/api/checkUser", {
+      withCredentials: true,
+    });
+    const data = await res.data;
+    if (data.success) {
+      dispatch(login());
+      dispatch(setUser(data.user));
+    }
+  };
 
-  // useEffect(() => {
-  //   checkUser();
-  // }, []);
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <nav className="flex justify-between bg-white px-3 md:px-4 lg:px-5 mb-10 py-4 shadow-md">
