@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -9,11 +9,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch;
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://localhost:5000/api/signup", {
+    const res = await axios.post("http://localhost:5000/api/login", {
       email,
       password,
     });
@@ -23,6 +24,7 @@ const Login = () => {
       toast.success("Login Successfully");
       dispatch(login());
       dispatch(setUser(data.user));
+      navigate("/");
     }
   };
 
