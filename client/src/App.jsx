@@ -7,22 +7,26 @@ import RecipeDetails from "./pages/RecipeDetails";
 import Favorites from "./pages/Favorites";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Toaster />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navbar />
+          <Toaster />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </>
   );
 };
