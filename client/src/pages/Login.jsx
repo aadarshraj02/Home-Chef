@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="flex items-center justify-center h-[80vh]">
       <div className="w-full max-w-md">
-        <form className="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4">
+        <form
+          className="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4"
+          onSubmit={handleLogin}
+        >
           <div className="text-gray-800 text-2xl flex justify-center border-b-2 py-2 mb-4">
             Login
           </div>
@@ -21,6 +32,8 @@ const Login = () => {
               type="email"
               required
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -37,6 +50,8 @@ const Login = () => {
               name="password"
               required
               autoComplete="false"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between">
